@@ -1,39 +1,64 @@
-import { Hero } from "@/components/sections/Hero";
-import { Stakes } from "@/components/sections/Stakes";
-import { SelectedWork } from "@/components/sections/SelectedWork";
-import { Guide } from "@/components/sections/Guide";
-import { WhatWeBuild } from "@/components/sections/WhatWeBuild";
-import { Plan } from "@/components/sections/Plan";
-import { Difference } from "@/components/sections/Difference";
-import { FeaturedCaseStudy } from "@/components/sections/FeaturedCaseStudy";
-import { Explanatory } from "@/components/sections/Explanatory";
-import { SocialProof } from "@/components/sections/SocialProof";
-import { AboutTeaser } from "@/components/sections/AboutTeaser";
-import { InsightsTeaser } from "@/components/sections/InsightsTeaser";
-import { FinalCta } from "@/components/sections/FinalCta";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { Section } from "@/components/ui/Container";
+import { insightArticles } from "@/lib/content/insights";
 
-/**
- * Homepage — Blueprint v3 Section 3, sections in the exact locked
- * order (01 Header → 15 Footer, Footer rendered globally in layout.tsx).
- * Section 10 "Who We Work With" is intentionally absent — merged into
- * WhatWeBuild per the blueprint's own decision (Section 3.10).
- */
-export default function Home() {
+export const metadata: Metadata = {
+  title: "Insights — Arsiekeh Agency",
+  description:
+    "Notes on WhatsApp commerce, digital systems, and building for Sierra Leone's real networks.",
+};
+
+export default function InsightsPage() {
   return (
-    <>
-      <Hero />
-      <Stakes />
-      <SelectedWork />
-      <Guide />
-      <WhatWeBuild />
-      <Plan />
-      <Difference />
-      <FeaturedCaseStudy />
-      <Explanatory />
-      <SocialProof />
-      <AboutTeaser />
-      <InsightsTeaser />
-      <FinalCta />
-    </>
+    <Section className="pb-20 pt-12 sm:pt-16">
+      <div className="mb-4 text-[0.95rem] font-semibold text-lime">
+        Insights
+      </div>
+      <h1 className="max-w-[26ch] text-[clamp(2rem,5vw,3rem)] font-bold">
+        Notes on building for how Sierra Leone actually buys, books and
+        connects.
+      </h1>
+
+      <div className="mt-14 grid gap-6 md:grid-cols-3">
+        {insightArticles.map((article) =>
+          article.published ? (
+            <Link
+              key={article.slug}
+              href={`/insights/${article.slug}`}
+              className="rounded-[var(--radius-md)] border border-border p-6 transition-colors duration-200 hover:border-lime/40"
+            >
+              <div className="mb-2.5 text-sm text-lime">
+                {article.category}
+              </div>
+              <h3 className="mb-2 text-[1.1rem] font-bold">
+                {article.title}
+              </h3>
+              <p className="text-[0.9rem] text-muted">{article.excerpt}</p>
+              <span className="mt-3 block text-[0.82rem] text-muted">
+                {article.readTime}
+              </span>
+            </Link>
+          ) : (
+            <div
+              key={article.slug}
+              className="rounded-[var(--radius-md)] border border-border p-6 opacity-60"
+              aria-disabled="true"
+            >
+              <div className="mb-2.5 text-sm text-lime">
+                {article.category}
+              </div>
+              <h3 className="mb-2 text-[1.1rem] font-bold">
+                {article.title}
+              </h3>
+              <p className="text-[0.9rem] text-muted">{article.excerpt}</p>
+              <span className="mt-3 block text-[0.82rem] text-muted">
+                Coming soon
+              </span>
+            </div>
+          )
+        )}
+      </div>
+    </Section>
   );
 }
