@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { ServiceCard } from "@/components/sections/ServiceCard";
 import { serviceCategories } from "@/lib/content/services";
-import { whatsappMessages } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
   title: "Services — Arsiekeh Agency",
@@ -54,23 +53,7 @@ export default function ServicesPage() {
           </div>
           <div className="grid gap-px overflow-hidden rounded-[var(--radius-md)] border border-border bg-border md:grid-cols-2">
             {category.items.map((item) => (
-              <div key={item.name} className="bg-background p-7">
-                <h3 className="mb-2 text-[1.05rem] font-bold">
-                  {item.name}
-                </h3>
-                <p className="text-[0.92rem] text-muted">
-                  {item.description}
-                </p>
-                <Button
-                  href={whatsappMessages.service(item.name)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="ghost"
-                  className="mt-3.5 text-[0.88rem]"
-                >
-                  Starting from — get a quote →
-                </Button>
-              </div>
+              <ServiceCard key={item.name} item={item} />
             ))}
           </div>
 

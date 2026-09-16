@@ -2,12 +2,12 @@
  * LogoMark — static rendering of the Arsiekeh "A" concept: a dashed red
  * construction stroke resolving into a solid lime letterform.
  *
- * This is intentionally NOT animated yet. The signature GSAP-driven
- * resolve animation (dashed → solid, before the hero headline appears)
- * is Tier 3 per the Build Prompt's feature priority tiers, and must not
- * be built until Tier 1 + 2 are shipped and stable. This static SVG is
- * the exact end-state artwork the animation will resolve into, so
- * swapping it for the animated version later is additive, not a redraw.
+ * Server-renderable (no "use client") — this is the plain mark used
+ * everywhere the logo appears repeatedly or briefly (nav, footer,
+ * PageTransition's loading flash). Animating it on every render would
+ * cheapen the one moment it's meant to own; see LogoMarkAnimated for
+ * that moment, which is a separate client-only component so importing
+ * this file never forces a client boundary on nav/footer.
  */
 interface LogoMarkProps {
   className?: string;

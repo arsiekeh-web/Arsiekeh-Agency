@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Section } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { ProjectForm } from "@/components/sections/ProjectForm";
+import { ProjectFormMultiStep } from "@/components/sections/ProjectFormMultiStep";
 import { whatsappMessages } from "@/lib/whatsapp";
 
 export const metadata: Metadata = {
@@ -53,7 +53,7 @@ export default function StartAProjectPage() {
           </Button>
         </div>
 
-        <ProjectForm />
+        <ProjectFormMultiStep />
       </div>
     </Section>
   );

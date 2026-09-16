@@ -4,10 +4,14 @@ import { useState, type FormEvent } from "react";
 import { buildWhatsAppLink } from "@/lib/whatsapp";
 
 /**
- * ProjectForm — Tier 1 version. Per the Build Prompt, the "smart
- * multi-step project intake form" is explicitly Tier 2 — this is the
- * single-step, fully-functional Tier 1 baseline it will later upgrade
- * from, not a placeholder.
+ * ProjectForm — Tier 1 single-step version. SUPERSEDED on the live
+ * Start a Project page by ProjectFormMultiStep (Tier 2 "Smart Project
+ * Intake" — conditional questions per client type, three steps).
+ *
+ * Kept in the codebase as a working, simpler fallback — if the
+ * multi-step form's client-side state ever needs bypassing (e.g. for
+ * a stripped-down embed elsewhere), this component still works
+ * standalone with zero dependency on step state.
  *
  * WIRING NOTE FOR PRODUCTION: this currently builds a pre-filled
  * WhatsApp deep link from the form fields and opens it — zero backend

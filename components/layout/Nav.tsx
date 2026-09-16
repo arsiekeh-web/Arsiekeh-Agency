@@ -36,6 +36,19 @@ export function Nav() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Escape-to-close for the mobile menu — a real Tier 1 accessibility
+  // gap (found during scrutiny pass): the menu previously had no way
+  // to close via keyboard other than tabbing back to the toggle button
+  // itself. Standard expected behavior for any disclosure/overlay nav.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setMobileOpen(false);
+    }
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [mobileOpen]);
+
   return (
     <header
       className={cn(
