@@ -35,4 +35,4 @@ export function OrganizationSchema() {
       dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
     />
   );
-    }
+}

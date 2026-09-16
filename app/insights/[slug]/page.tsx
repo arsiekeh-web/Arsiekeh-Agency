@@ -75,4 +75,4 @@ export default async function InsightArticlePage({
       <FinalCta heading="Want this for your business?" />
     </>
   );
-    }
+}

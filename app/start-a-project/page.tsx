@@ -57,4 +57,4 @@ export default function StartAProjectPage() {
       </div>
     </Section>
   );
-  }
+}

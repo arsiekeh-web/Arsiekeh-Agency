@@ -33,4 +33,4 @@ export function AboutTeaser() {
       </div>
     </Section>
   );
-    }
+}
