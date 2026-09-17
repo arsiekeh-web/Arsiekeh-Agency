@@ -4,7 +4,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { Reveal } from "@/components/ui/reveal";
 import { FinalCta } from "@/components/sections/FinalCta";
+import { CaseStudyNarrative } from "@/components/sections/CaseStudyNarrative";
 import { getProjectBySlug, getProjectsWithCaseStudies } from "@/lib/content/projects";
 
 interface CaseStudyPageProps {
@@ -115,27 +117,17 @@ export default async function CaseStudyPage({ params }: CaseStudyPageProps) {
       </Section>
 
       <Section className="pt-0">
-        <div className="space-y-12">
-          {sections.map((s) => (
-            <div key={s.heading} className="max-w-[68ch]">
-              <h2 className="mb-4 text-[clamp(1.4rem,2.5vw,1.8rem)] font-bold">
-                {s.heading}
-              </h2>
-              <p className="text-[1.02rem] text-offwhite/85">{s.body}</p>
-            </div>
-          ))}
+        <CaseStudyNarrative sections={sections} />
 
-          <div className="max-w-[68ch]">
-            <div className="grid gap-6 sm:grid-cols-3">
-              {cs.resultHighlights.map((h) => (
-                <div
-                  key={h}
-                  className="rounded-[var(--radius-md)] border border-border p-5"
-                >
+        <div className="mt-12 max-w-[68ch]">
+          <div className="grid gap-6 sm:grid-cols-3">
+            {cs.resultHighlights.map((h, i) => (
+              <Reveal key={h} delay={i * 0.06}>
+                <div className="rounded-[var(--radius-md)] border border-border p-5">
                   <p className="text-[0.95rem] text-offwhite/85">{h}</p>
                 </div>
-              ))}
-            </div>
+              </Reveal>
+            ))}
           </div>
         </div>
 

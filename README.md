@@ -27,21 +27,16 @@ changing structure, copy, or the visual system:
   questions (`components/sections/ProjectFormMultiStep.tsx` — the
   Tier 1 single-step `ProjectForm.tsx` is kept in the codebase as a
   documented fallback, not deleted).
-- **Tier 3 (Signature):** in progress. Done: animated logo resolve
-  (`components/ui/LogoMarkAnimated.tsx` — dashed red stroke draws in,
-  lime letterform resolves over it). Kept deliberately separate from
-  the static `LogoMark.tsx` so importing the plain mark in Nav/Footer
-  never forces an unneeded client boundary. Headline/subhead/CTAs in
-  `components/sections/Hero.tsx` animate independently and immediately
-  — NOT gated behind the logo sequence finishing, since the H1 is
-  almost certainly the page's LCP element and delaying its paint by
-  1s+ would have fought the locked LCP ≤2.5s target. Logo animation
-  plays once per browser session (sessionStorage-gated) rather than
-  replaying on every visit; server-rendered HTML always ships the
-  plain static mark, with the animation layered in client-side only
-  on a genuine first visit. Remaining: scroll-driven featured case
-  study, project-card-to-case-study page transition, one 3D/WebGL
-  element.
+- **Tier 3 (Signature):** complete. Animated logo resolve
+  (`components/ui/LogoMarkAnimated.tsx`), session-gated so it plays
+  once per browser session, headline animates independently to protect
+  the LCP budget. Scroll-driven case study narrative
+  (`components/sections/CaseStudyNarrative.tsx`). One 3D element
+  (`components/ui/tilt-card.tsx` — CSS 3D transforms, deliberately not
+  Three.js/WebGL, applied to the featured case study thumbnail only).
+  Project-card-to-case-study transition (`components/layout/
+  PageTransition.tsx`, sessionStorage handoff, not the experimental
+  native View Transitions API — see file comments for full reasoning).
 
 ## Hard constraints (do not violate)
 
@@ -107,3 +102,38 @@ APIs (`window`, `sessionStorage`, `matchMedia`) does so only inside
 `useEffect`, so server/first-client render always match — no hydration
 mismatches. `WorkGrid`'s filter buttons are real `<button>` elements
 with `aria-pressed`, correctly keyboard-operable without extra work.
+
+## Project status — is this finished?
+
+**Short answer: no.** Tier 1, 2, and 3 are code-complete and every
+build in this history has compiled clean with zero errors — but
+"finished" per the Build Prompt also requires the CI gates that were
+supposed to validate each tier objectively, and those don't exist yet:
+
+- **Lighthouse CI** — nothing currently measures whether the locked
+  LCP ≤2.5s / INP ≤200ms / CLS ≤0.1 targets are actually met. They're
+  designed for, not verified.
+- **axe-core accessibility scan** — manual review has caught and fixed
+  real issues (missing Escape handler on mobile nav, no focus
+  management in the multi-step form), but nothing has run an automated
+  pass across every page.
+- **Visual regression testing** — nothing guards against silent drift
+  from the exact-hex design tokens over time.
+
+These need a real CI environment (GitHub Actions) to exist at all —
+they can't be built or run inside a sandboxed dev environment with no
+persistent git history or CI runner. This is the honest gap between
+"the code is done" and "the project is verified."
+
+**Known minor technical debt (not a bug, but fragile):** the homepage's
+Featured Case Study section picks whichever project is *first* in
+`lib/content/projects.ts` — implicit array-order logic, not an
+explicit `featured: true` flag. Adding a new case study above Scent
+Vault SL in that file would silently change which project is featured.
+Fine today, worth a small refactor before this file is edited by
+someone other than the original builder.
+
+**What's genuinely solid:** every page renders real content, real
+images, real pricing-rule enforcement at the type level, real WhatsApp
+deep-linking, and the full Tier 1–3 feature set — verified by clean
+builds throughout this history, not just claimed.

@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import type { Project } from "@/lib/content/types";
+import { stashProjectTransition } from "@/components/layout/PageTransition";
 
 const categoryLabel: Record<Project["clientType"], string> = {
   business: "Business",
@@ -13,11 +16,28 @@ const categoryLabel: Record<Project["clientType"], string> = {
  * Work index page. Links to the internal case study route when one
  * exists (`hasCaseStudy`); otherwise links out to the live external
  * site. Never both, so the user always has exactly one clear next step.
+ *
+ * Client component (needed for the case-study link's click handler,
+ * which stashes this project's thumbnail/title via
+ * stashProjectTransition() right before navigating, so
+ * PageTransition's overlay can show the same image/title rather than
+ * a generic logo flash — see PageTransition.tsx for the full
+ * reasoning).
  */
 export function ProjectCard({ project }: { project: Project }) {
   const caseStudyHref = project.hasCaseStudy
     ? `/work/${project.slug}`
     : null;
+
+  function handleCaseStudyClick() {
+    if (project.thumbnailSrc) {
+      stashProjectTransition({
+        title: project.title,
+        thumbnailSrc: project.thumbnailSrc,
+        thumbnailAlt: project.thumbnailAlt,
+      });
+    }
+  }
 
   return (
     <div className="group flex flex-col overflow-hidden rounded-[var(--radius-md)] border border-border bg-surface transition-colors duration-200 hover:border-lime/40">
@@ -49,6 +69,7 @@ export function ProjectCard({ project }: { project: Project }) {
         {caseStudyHref ? (
           <Link
             href={caseStudyHref}
+            onClick={handleCaseStudyClick}
             className="mt-4 inline-block text-[0.9rem] font-semibold text-offwhite/80 underline-offset-4 hover:text-lime hover:underline"
           >
             Read the case study →

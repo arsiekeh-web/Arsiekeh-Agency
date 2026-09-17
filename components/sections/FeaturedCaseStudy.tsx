@@ -1,5 +1,7 @@
+import Image from "next/image";
 import { Section } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
+import { TiltCard } from "@/components/ui/tilt-card";
 import { getProjectsWithCaseStudies } from "@/lib/content/projects";
 
 /**
@@ -28,9 +30,21 @@ export function FeaturedCaseStudy() {
           Featured case study
         </div>
         <h2 className="mb-8 max-w-[28ch] text-[clamp(1.75rem,3.5vw,2.3rem)] font-bold">
-          {featured.title}: from WhatsApp-only to a system that sells while
-          they sleep
+          {featured.title}
         </h2>
+        {featured.thumbnailSrc && (
+          <TiltCard>
+            <div className="relative mb-10 aspect-video overflow-hidden rounded-[var(--radius-md)] border border-border">
+              <Image
+                src={featured.thumbnailSrc}
+                alt={featured.thumbnailAlt}
+                fill
+                className="object-cover object-top"
+                sizes="(min-width: 1024px) 1024px, 100vw"
+              />
+            </div>
+          </TiltCard>
+        )}
         <div className="grid gap-7 md:grid-cols-5 md:gap-5">
           {cols.map((col) => (
             <div key={col.label}>
