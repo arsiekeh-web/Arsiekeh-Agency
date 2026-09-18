@@ -137,3 +137,45 @@ someone other than the original builder.
 images, real pricing-rule enforcement at the type level, real WhatsApp
 deep-linking, and the full Tier 1–3 feature set — verified by clean
 builds throughout this history, not just claimed.
+
+## Rebrand (2026) — partial adoption, decisions pending
+
+A rebrand mockup was provided introducing: a new hexagonal/shield
+logo mark (replacing the dashed-A concept the Tier 3 signature
+animation was built around), new exact palette values
+(`#B7FF00` lime, `#FF1E1E` red — noticeably different from the
+original logo-derived `#C8ED3D`/`#CA1534`), a new tagline
+("WE MAKE POTENTIAL VISIBLE."), and Space Grotesk in the typography
+spec for subheadings.
+
+**Adopted now (low-risk, mechanical):**
+- Color tokens updated to the new exact hex values in
+  `app/globals.css` — every CTA/link/hover-state on the live site now
+  matches the new brand sheet.
+- New `components/sections/CapabilityStrip.tsx` — a four-icon
+  capability row under the hero CTAs (WhatsApp & AI Systems /
+  Branding & Identity / Websites & PWAs / Event & Marketing
+  Graphics), adapted from the mockup's icon row but using real
+  lucide-react icons (not emoji — avoid-list), no decorative glow
+  behind icons (avoid-list "radial orb" territory), and labels folded
+  to match the site's existing Business/Organisation/Event service
+  architecture rather than introducing a second taxonomy.
+
+**Deliberately NOT adopted — needs an explicit decision first:**
+- **Space Grotesk** is in the rebrand's typography spec for
+  subheadings. This is the exact font the original avoid-list banned
+  by name and Blueprint v2 explicitly excluded. Not added.
+- **New logo mark geometry** — not implemented. The current
+  `LogoMarkAnimated.tsx` signature animation (dashed red stroke
+  resolving into a solid lime "A") is built entirely around the old
+  logo concept. Adopting the new hexagon/shield mark means that
+  animation has no geometry left to animate — it would need to be
+  rebuilt from scratch, not edited. Confirm this is wanted before
+  that work starts, since it discards a full Tier 3 signature piece.
+- **Tagline "WE MAKE POTENTIAL VISIBLE."** — not swapped in for
+  "BUILT TO BE SEEN." This puts Arsiekeh back as the sentence's
+  subject, which is the same structural issue the original headline
+  ("WE BUILD THINGS THAT MAKE PEOPLE PAY ATTENTION") had before the
+  StoryBrand rewrite deliberately fixed it. May be an intentional
+  brand-voice decision now — needs to be confirmed as one, not
+  adopted as a side effect of applying the rest of the rebrand.

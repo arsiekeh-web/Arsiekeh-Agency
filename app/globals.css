@@ -8,10 +8,10 @@
    ============================================================ */
 
 :root {
-  /* Core palette — measured from brand logo */
+  /* Core palette — per rebrand brand sheet (2026), supersedes original logo-derived values */
   --color-background: #1b1b1b; /* near-black, ~85% of UI */
-  --color-lime: #c8ed3d; /* primary accent — CTAs, links, hover, ~10% */
-  --color-red: #ca1534; /* signal/highlight only — sparing, ~5% */
+  --color-lime: #b7ff00; /* primary accent — CTAs, links, hover, ~10% */
+  --color-red: #ff1e1e; /* signal/highlight only — sparing, ~5% */
   --color-offwhite: #f5f5f0; /* body text on dark — placeholder pending brand confirmation */
 
   /* Derived surface tones — for cards/borders without introducing new hues */

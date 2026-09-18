@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { LogoMarkAnimated } from "@/components/ui/LogoMarkAnimated";
 import { MagneticButton } from "@/components/ui/magnetic-button";
+import { CapabilityStrip } from "@/components/sections/CapabilityStrip";
 
 const SEEN_KEY = "arsiekeh-logo-seen";
 
@@ -87,6 +88,7 @@ export function Hero() {
           VIEW OUR WORK ↓
         </Button>
       </motion.div>
+      <CapabilityStrip />
     </Section>
   );
 }
